@@ -1,4 +1,8 @@
 export interface HotelApiResponse {
+  body: HotelApiResponseRes;
+  status: number;
+}
+export interface HotelApiResponseRes {
   success: string;
   accommodations: Accommodation[];
 }

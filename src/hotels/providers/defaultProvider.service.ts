@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { HotelProvider } from './hotel-provider.abstract';
 import { HotelProviderTag } from '../decorators/hotel-provider.decorator';
 import {
   Hotel,
@@ -9,6 +8,7 @@ import {
 } from '@/entities';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { HotelProvider } from './hotel-provider.abstract';
 
 @HotelProviderTag()
 @Injectable()
@@ -37,14 +37,17 @@ export class DefaultProviderService extends HotelProvider {
 
       const response = await firstValueFrom(
         this.httpService.post<HotelApiResponse>(this.url, {
-          ...hotelSearchDTO,
-          group_size: groupSizeForSend,
-        } as IHotelSearchDTO),
+          query: {
+            ...hotelSearchDTO,
+            group_size: groupSizeForSend,
+          } as IHotelSearchDTO,
+        }),
       );
 
-      if (response.data.success !== 'true') return [];
+      const resData = response.data.body;
+      if (resData.success !== 'true') return [];
 
-      yield response.data.accommodations.map((acc) => this.mapToHotel(acc));
+      yield resData.accommodations.map((acc) => this.mapToHotel(acc));
     }
   }
 }

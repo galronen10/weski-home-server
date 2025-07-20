@@ -18,7 +18,7 @@ import { IHotelSearchDTO } from '@/entities';
 export class HotelsGateway implements OnGatewayDisconnect {
   constructor(private readonly hotelsService: HotelsService) {}
 
-  @SubscribeMessage('request')
+  @SubscribeMessage('hotel-search')
   handleRequest(
     @MessageBody() hotelSearchDTO: IHotelSearchDTO,
     @ConnectedSocket() client: Socket,

@@ -51,11 +51,7 @@ export class HotelsService implements OnModuleInit {
   ) {
     try {
       for await (const result of provider.search(hotelSearchDTO, signal)) {
-        socket.emit('response', {
-          type: 'searchHotelsPartial',
-          provider: provider.name,
-          result,
-        });
+        socket.emit('hotel-result', result);
       }
     } catch (err) {
       // if (err.message !== 'Aborted') {
