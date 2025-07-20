@@ -9,12 +9,9 @@ export interface Hotel {
   id: string;
   name: string;
   rating: number;
-  latitude: number;
-  longitude: number;
-  beds: number;
+  siteId: number;
   price: number;
-  images: string[];
-  distances: { type: string; distance: string }[];
+  imageUrl: string;
 }
 
 export const maxGroupSize = 10;

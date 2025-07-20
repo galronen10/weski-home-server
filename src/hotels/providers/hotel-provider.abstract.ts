@@ -8,20 +8,16 @@ export abstract class HotelProvider {
     signal?: AbortSignal,
   ): AsyncGenerator<Hotel[]>;
 
-  protected mapToHotel(acc: Accommodation): Hotel {
+  protected mapToHotel(acc: Accommodation, siteId: number): Hotel {
     return {
       id: acc.HotelCode,
       name: acc.HotelName,
       rating: +acc.HotelInfo.Rating,
-      latitude: +acc.HotelInfo.Position.Latitude,
-      longitude: +acc.HotelInfo.Position.Longitude,
-      beds: +acc.HotelInfo.Beds,
       price: +acc.PricesInfo.AmountAfterTax,
-      images: acc.HotelDescriptiveContent.Images.map((img) => img.URL),
-      distances: acc.HotelInfo.Position.Distances.map((d) => ({
-        type: d.type,
-        distance: d.distance,
-      })),
+      imageUrl:
+        acc.HotelDescriptiveContent.Images.find((img) => img.MainImage)?.URL ??
+        '',
+      siteId,
     };
   }
 }

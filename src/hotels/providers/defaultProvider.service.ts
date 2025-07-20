@@ -47,7 +47,9 @@ export class DefaultProviderService extends HotelProvider {
       const resData = response.data.body;
       if (resData.success !== 'true') return [];
 
-      yield resData.accommodations.map((acc) => this.mapToHotel(acc));
+      yield resData.accommodations.map((acc) =>
+        this.mapToHotel(acc, hotelSearchDTO.ski_site),
+      );
     }
   }
 }
