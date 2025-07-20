@@ -1,9 +1,9 @@
-import { HotelsModule } from './hotels/hotels.module';
+import { ProvidersModule } from './hotels/providers/providers.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UserModule } from './user';
+import { HotelsModule } from './hotels/hotels.module';
 
 @Module({
-  imports: [HotelsModule, ConfigModule.forRoot(), UserModule],
+  imports: [ProvidersModule, HotelsModule, ConfigModule.forRoot()],
 })
 export class AppModule {}
